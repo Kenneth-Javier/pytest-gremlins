@@ -82,12 +82,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Run tests (small + medium)
-        run: |
-          uv run pytest tests/small tests/medium \
-            --cov=pytest_gremlins \
-            --cov-report=xml \
-            --cov-report=term-missing \
-            -v
+        run: uv run pytest tests/small tests/medium --cov=pytest_gremlins --cov-report=xml --cov-report=term-missing -v
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

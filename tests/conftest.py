@@ -34,3 +34,6 @@ def pytest_collection_modifyitems(
             item.add_marker(pytest.mark.medium)
         elif 'large' in path_parts:
             item.add_marker(pytest.mark.large)
+        elif 'src' in path_parts:
+            # Doctests from source code default to small
+            item.add_marker(pytest.mark.small)
