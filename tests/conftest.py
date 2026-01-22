@@ -16,6 +16,8 @@ def pytest_configure(config: pytest.Config) -> None:
 
 
 # Auto-mark tests based on directory
+# Use tryfirst=True to add markers BEFORE pytest-test-categories checks for them
+@pytest.hookimpl(tryfirst=True)
 def pytest_collection_modifyitems(
     config: pytest.Config,  # noqa: ARG001
     items: list[pytest.Item],
