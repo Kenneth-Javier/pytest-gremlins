@@ -166,3 +166,4 @@ build/
 # Local development
 .env.local
 .env.*.local
+.worktrees/
