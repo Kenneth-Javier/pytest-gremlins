@@ -245,7 +245,7 @@ directory = "htmlcov"
 # =============================================================================
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.1.0-alpha.1"
+version = "0.1.0"
 version_files = [
     "pyproject.toml:version",
     "src/pytest_gremlins/__init__.py:__version__",
@@ -257,5 +257,6 @@ changelog_incremental = true
 
 [dependency-groups]
 dev = [
+    "commitizen>=4.10.0",
     "coverage[toml]>=7.0.0",
 ]

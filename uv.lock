@@ -1331,6 +1331,7 @@ docs = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "commitizen" },
     { name = "coverage", extra = ["toml"] },
 ]
 
@@ -1359,7 +1360,10 @@ requires-dist = [
 provides-extras = ["dev", "docs"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "coverage", extras = ["toml"], specifier = ">=7.0.0" }]
+dev = [
+    { name = "commitizen", specifier = ">=4.10.0" },
+    { name = "coverage", extras = ["toml"], specifier = ">=7.0.0" },
+]
 
 [[package]]
 name = "pytest-test-categories"
