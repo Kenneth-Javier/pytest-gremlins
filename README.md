@@ -26,6 +26,28 @@ Existing Python mutation testing tools are slow. pytest-gremlins is built for sp
 - **Incremental Analysis** - Caches results. Unchanged code/tests don't get re-tested.
 - **Parallel Execution** - Distributes gremlins across CPU cores.
 
+## Performance
+
+Benchmarked against [mutmut](https://github.com/boxed/mutmut) on a synthetic project (Python 3.12, Docker):
+
+| Mode | Time | vs mutmut | Speedup |
+|------|------|-----------|---------|
+| `--gremlins` (sequential) | 17.79s | 14.90s | 0.84x |
+| `--gremlins --gremlin-parallel` | 3.99s | 14.90s | **3.73x faster** |
+| `--gremlins --gremlin-parallel --gremlin-cache` | 1.08s | 14.90s | **13.82x faster** |
+
+**Key findings:**
+- Sequential mode is ~16% slower than mutmut (more mutation operators enabled by default)
+- Parallel mode delivers **3.73x speedup** over mutmut
+- With caching enabled, subsequent runs are **13.82x faster**
+- pytest-gremlins found 117 mutations vs mutmut's 86, with a 98% kill rate vs 86%
+
+Run your own benchmarks:
+```bash
+docker run --rm -v "$(pwd):/project" -w /benchmark python:3.12-slim bash -c \
+  "pip install pytest-gremlins mutmut && python /project/benchmarks/docker/run_comparison.py"
+```
+
 ## Installation
 
 ```bash
