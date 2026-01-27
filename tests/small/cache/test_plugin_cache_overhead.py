@@ -75,10 +75,10 @@ class TestSqliteCommitOverhead:
             individual_time = time.perf_counter() - start
 
         # Note: Windows filesystem I/O is significantly slower than macOS/Linux.
-        # CI runners show extreme variance - Windows Python 3.14 has taken 6.5s.
+        # CI runners show extreme variance - Windows Python 3.14 has taken 15s+.
         # This test documents that individual commits have overhead, not a strict
-        # performance requirement. Use generous 10s threshold for CI stability.
-        assert individual_time < 10.0, (
+        # performance requirement. Use generous 30s threshold for CI stability.
+        assert individual_time < 30.0, (
             f'Individual commits took {individual_time * 1000:.1f}ms for 100 entries. '
             'This demonstrates SQLite commit overhead.'
         )

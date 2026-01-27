@@ -36,8 +36,9 @@ class TestIncrementalCacheBatchOperations:
                 result = cache.get_cached_result(f'gremlin_{i}', 'source_hash', {'test': 'hash'})
                 assert result == {'status': 'zapped'}
 
-        # Deferred writes should be fast (< 100ms for 100 entries)
-        assert deferred_time < 0.1, f'Deferred writes took {deferred_time * 1000:.1f}ms for {num_gremlins} entries'
+        # Deferred writes should be fast (< 500ms for 100 entries)
+        # Note: Windows CI (especially Python 3.14) can be significantly slower
+        assert deferred_time < 0.5, f'Deferred writes took {deferred_time * 1000:.1f}ms for {num_gremlins} entries'
 
     def test_close_flushes_deferred_writes(self, tmp_path: Path) -> None:
         """Closing the cache flushes any pending deferred writes."""
