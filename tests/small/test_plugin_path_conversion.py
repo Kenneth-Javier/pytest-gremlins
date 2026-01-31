@@ -1,4 +1,4 @@
-"""Tests for module name path conversion in plugin.py."""
+"""Tests for module name to path conversion in plugin.py."""
 
 from __future__ import annotations
 
