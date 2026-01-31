@@ -211,6 +211,14 @@ nav:
       - Reports: guide/reports.md
       - Extensibility: guide/extensibility.md
 
+  - Architecture:
+      - Overview: architecture/index.md
+      - Speed Pillars: architecture/speed.md
+      - Mutation Switching: architecture/mutation-switching.md
+      - Coverage Guidance: architecture/coverage-guidance.md
+      - Incremental Analysis: architecture/incremental-analysis.md
+      - Parallel Execution: architecture/parallelization.md
+
   - API Reference:
       - Overview: api/index.md
       - Plugin: api/plugin.md
