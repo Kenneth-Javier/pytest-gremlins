@@ -383,3 +383,34 @@ class TestCreateGremlinsForNode:
 
         assert gremlins == []
         assert counter[0] == 0  # No IDs were generated
+
+
+class TestGremlinIdUniquenessAcrossFiles:
+    """Test that gremlin IDs are globally unique across different files."""
+
+    def test_gremlins_from_different_files_have_disjoint_ids(self):
+        source = 'x = 1 + 2'
+        gremlins_a, _ = transform_source(source, 'file_a.py')
+        gremlins_b, _ = transform_source(source, 'file_b.py')
+
+        ids_a = {g.gremlin_id for g in gremlins_a}
+        ids_b = {g.gremlin_id for g in gremlins_b}
+
+        assert ids_a.isdisjoint(ids_b)
+
+    def test_same_named_files_in_different_directories_have_disjoint_ids(self):
+        source = 'x = 1 + 2'
+        gremlins_src, _ = transform_source(source, 'src/utils.py')
+        gremlins_tests, _ = transform_source(source, 'tests/utils.py')
+
+        ids_src = {g.gremlin_id for g in gremlins_src}
+        ids_tests = {g.gremlin_id for g in gremlins_tests}
+
+        assert ids_src.isdisjoint(ids_tests)
+
+    def test_gremlin_ids_contain_file_stem_prefix(self):
+        source = 'x = 1 + 2'
+        gremlins, _ = transform_source(source, 'my_module.py')
+
+        assert len(gremlins) >= 1
+        assert all('my_module' in g.gremlin_id for g in gremlins)
